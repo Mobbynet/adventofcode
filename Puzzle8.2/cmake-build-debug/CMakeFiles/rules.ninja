@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /opt/clion/bin/cmake/linux/bin/cmake --regenerate-during-build -S"/home/michal/Studia/AdventOfCode/Puzzle 8" -B"/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug"
+  command = /opt/clion/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/michal/Studia/AdventOfCode/Puzzle8.2 -B/home/michal/Studia/AdventOfCode/Puzzle8.2/cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

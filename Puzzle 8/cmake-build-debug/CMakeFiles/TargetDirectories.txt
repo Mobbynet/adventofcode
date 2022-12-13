@@ -1,3 +1,0 @@
-/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug/CMakeFiles/Puzzle_8.dir
-/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug/CMakeFiles/rebuild_cache.dir

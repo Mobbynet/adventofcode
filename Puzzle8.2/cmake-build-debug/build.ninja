@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/michal/Studia/AdventOfCode/Puzzle$ 8/cmake-build-debug/
+cmake_ninja_workdir = /home/michal/Studia/AdventOfCode/Puzzle8.2/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target Puzzle_8
 
@@ -49,7 +49,7 @@ cmake_ninja_workdir = /home/michal/Studia/AdventOfCode/Puzzle$ 8/cmake-build-deb
 
 build cmake_object_order_depends_target_Puzzle_8: phony || CMakeFiles/Puzzle_8.dir
 
-build CMakeFiles/Puzzle_8.dir/main.c.o: C_COMPILER__Puzzle_8_Debug /home/michal/Studia/AdventOfCode/Puzzle$ 8/main.c || cmake_object_order_depends_target_Puzzle_8
+build CMakeFiles/Puzzle_8.dir/main.c.o: C_COMPILER__Puzzle_8_Debug /home/michal/Studia/AdventOfCode/Puzzle8.2/main.c || cmake_object_order_depends_target_Puzzle_8
   DEP_FILE = CMakeFiles/Puzzle_8.dir/main.c.o.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Puzzle_8.dir
@@ -79,7 +79,7 @@ build Puzzle_8: C_EXECUTABLE_LINKER__Puzzle_8_Debug CMakeFiles/Puzzle_8.dir/main
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug" && /opt/clion/bin/cmake/linux/bin/ccmake -S"/home/michal/Studia/AdventOfCode/Puzzle 8" -B"/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug"
+  COMMAND = cd /home/michal/Studia/AdventOfCode/Puzzle8.2/cmake-build-debug && /opt/clion/bin/cmake/linux/bin/ccmake -S/home/michal/Studia/AdventOfCode/Puzzle8.2 -B/home/michal/Studia/AdventOfCode/Puzzle8.2/cmake-build-debug
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -91,7 +91,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug" && /opt/clion/bin/cmake/linux/bin/cmake --regenerate-during-build -S"/home/michal/Studia/AdventOfCode/Puzzle 8" -B"/home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug"
+  COMMAND = cd /home/michal/Studia/AdventOfCode/Puzzle8.2/cmake-build-debug && /opt/clion/bin/cmake/linux/bin/cmake --regenerate-during-build -S/home/michal/Studia/AdventOfCode/Puzzle8.2 -B/home/michal/Studia/AdventOfCode/Puzzle8.2/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -107,7 +107,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /home/michal/Studia/AdventOfCode/Puzzle 8/cmake-build-debug
+# Folder: /home/michal/Studia/AdventOfCode/Puzzle8.2/cmake-build-debug
 
 build all: phony Puzzle_8
 
