@@ -5,7 +5,7 @@
 
 #define MAP_SIZE 512
 #define ROPE_SIZE 10
-#define FILE_READ "/home/michal/Studia/AdventOfCode/Project 9.1v2/input.txt"
+#define FILE_READ "/home/michal/Studia/AdventOfCode/Puzzle 9.2/input.txt"
 
 int main() {
     printf("Hello, World!\n");

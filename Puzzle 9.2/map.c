@@ -45,7 +45,6 @@ int countWasT(Node*** map,int map_size){
             if(map[i][j]->wasT == 1)
                 sum++;
         }
-
     }
     return sum;
 }

@@ -30,7 +30,7 @@ void freeRope(Ropelink **rope, int size_of_rope){      //000000000      x:0
     }                                                  //000000000      x:3
     free(rope);
 }
-
+/*
 bool ropeCheck(Ropelink *rope,int link_checked, Node ***map){
     if(link_checked == 0){
         map[rope->x][rope->y]->wasT = 1;
@@ -79,7 +79,8 @@ void moveDown(Ropelink* rope_link, Node*** map,int rope_num){
 
     }
 }
-
+*/ //do part 2 trzeba zmienic caly program
+// doslownie caly to bedzie tak meczace ze zostawiam to na pozniej
 void printRope(Ropelink** rope, int displaySize){
     printf("\n");
     for (int i = 0; i < displaySize; ++i) {
