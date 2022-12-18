@@ -4,39 +4,54 @@
 
 #include "Queue.h"
 
-//ukradzione z puzzle 7
+typedef struct {
+    Node **data;
+    int front;
+    int rear;
+} queue;
 
-Queue *createQueue(){
-    Queue *newQueue;
-    newQueue = (Queue* ) malloc(sizeof(Queue));
-    newQueue->q_len = 0;
-    //newQueue->queue = (Node**) malloc(sizeof(Node*));
-    return newQueue;
+void init(queue *q_t) {
+    q_t->data = malloc(MAX_QUEUE_SIZE*sizeof(Node*));
+    q_t->front = 0;
+    q_t->rear = 0;
 }
-void *appendQueue(Queue *t_queue, Node *t_node) {
-    t_queue->q_len = t_queue->q_len + 1;
-    //t_queue =(Node**) realloc(t_queue->queue,t_queue->q_len*sizeof(Node*));
-    //int size_of_q = 0;
-    //size_of_q = t_queue->q_len;
-    for(int i =0; i < t_queue->q_len; i++)
-        t_queue->queue[t_queue->q_len - i] = t_queue->queue[t_queue->q_len-1-i];
 
-    //t_queue->q_len = 10;
-    t_queue->queue[0] = t_node;
+bool is_empty(queue *q) {
+    return q->front == q->rear;
 }
-Node *popQueue(Queue *t_queue){
-    Node *returned_node;
-    returned_node = t_queue->queue[0];
-    t_queue->q_len = t_queue->q_len -1;
-    for(int i = 0; i < t_queue->q_len; i++)
-        t_queue->queue[i] = t_queue->queue[i+1];
-    t_queue->queue[t_queue->q_len] = NULL;
-    //t_queue->queue = (Node**)realloc(t_queue->queue,t_queue->q_len*sizeof(Node*));
-    return returned_node;
-}
-int isQueueEmpty(Queue *t_queue){
-    if(t_queue->queue[0] == NULL)
-        return 1;
 
-    return 0;
+void enqueue(queue *q, Node *added_node) {
+    q->data[q->rear] = added_node;
+    q->rear = (q->rear + 1) % MAX_QUEUE_SIZE;
+}
+
+Node* dequeue(queue *q) {
+    Node *x = q->data[q->front];
+    q->front = (q->front + 1) % MAX_QUEUE_SIZE;
+    return x;
+}
+
+int BFS(Node ***nodes, int start_x, int start_y, int end_x, int end_y) {
+    queue *q = malloc(sizeof(queue));
+    init(q);
+    Node *start = nodes[start_y][start_x];
+    start->visited = 1;
+    enqueue(q, start);
+    Node *neighbor;
+    Node *curr;
+    while (!is_empty(q)) {
+        curr = dequeue(q);
+
+        if (curr->x == end_x && curr->y == end_y) {
+            return curr->visited-1; //start nie liczy sie do krokow
+        }
+        for (int i = 0; i < curr->neightailloc + 1; i++) {
+            neighbor = curr->pos_neighbours[i];
+            if (neighbor != NULL && !neighbor->visited) {
+                neighbor->visited = curr->visited + 1;
+                enqueue(q, neighbor);
+            }
+        }
+    }
+    return -1; //not found
 }

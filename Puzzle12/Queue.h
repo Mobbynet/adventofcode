@@ -5,21 +5,14 @@
 #ifndef PUZZLE12_QUEUE_H
 #define PUZZLE12_QUEUE_H
 
+
+
 #include "Node.h"
 
-#define MAX 256
-
-struct Queue{
-    Node *queue[MAX+1];
-    int q_len;
-};
-typedef struct Queue Queue;
-
-void *appendQueue(Queue *, Node *);
-
-Node *popQueue(Queue *);
-
-int isQueueEmpty(Queue *);
+#define MAX_QUEUE_SIZE 512
 
 
+
+
+int BFS(Node***,int,int,int,int);
 #endif //PUZZLE12_QUEUE_H

@@ -17,7 +17,8 @@ Node *createNode(int y_t,int x_t){
     }
     newNode->x = x_t;
     newNode->y = y_t;//neighbours is empty as is char
-    newNode->neighlen = -1;
+    newNode->neightailloc = -1;
+    newNode->visited = 0;
     //newNode ->pos_neighbours = NULL;
     return newNode;
 }
@@ -43,48 +44,47 @@ Node ***createGraph(char **mapa,int x,int y) {
 
 }
 int findAlphIndex(char letter){
-    for (int i = 0; i < ALPHABET_LEN; ++i)
-        if(alphabet[i] == letter)
-            return i;
-
+    if(letter == 'S'){
+        return 0;
+    }
+    else if(letter == 'E'){
+        return ALPHABET_LEN-1;
+    }
+    else {
+        for (int i = 0; i < ALPHABET_LEN; ++i)
+            if (alphabet[i] == letter)
+                return i;
+    }
     return 99; //if not found
 }
 
 
 
-void assignMemoryToPosNeighbours(Node *node_t) {
-    if(node_t->neighlen == -1){
-        node_t->pos_neighbours = (Node**)malloc(sizeof(Node*));
-        if (node_t->pos_neighbours == NULL) {
-            printf("Allocation to node: %d %d from NULL to Node** pointer failed", node_t->x, node_t->y);
-        }
-    }
-    else{
-        node_t->pos_neighbours = (Node**) realloc(node_t->pos_neighbours,(node_t->neighlen+1)*sizeof(Node*));
-        if (node_t->pos_neighbours == NULL) {
-                printf("Allocation to node: %d %d from NULL to Node** pointer failed",node_t->x,node_t->y);
-            }
-    }
+
+bool IsInMap(int y_t, int x_t,int max_y_t,int max_x_t) {
+    if (y_t > max_y_t-1 || y_t < 0)
+        return 0;
+    else if (x_t > max_x_t-1 || x_t < 0)
+        return 0;
+    else
+        return 1;
 }
+
 
 void checkAndAppendNeighbour(Node* node_t,Node *node_t2){
     if(findAlphIndex(node_t->letter) == 99 || findAlphIndex(node_t2->letter) == 99)
         printf(stderr,"Index of letter not found");
-    else if(findAlphIndex(node_t->letter) == findAlphIndex(node_t2->letter)){
-        assignMemoryToPosNeighbours(node_t);
-        node_t->neighlen++;
-        node_t->pos_neighbours[node_t->neighlen] = node_t2;
+    if(findAlphIndex(node_t->letter) == findAlphIndex(node_t2->letter)){
+        node_t->neightailloc++;
+        node_t->pos_neighbours[node_t->neightailloc] = node_t2;
     }
-    else if(findAlphIndex(node_t->letter) == (findAlphIndex(node_t2->letter)-1)){
-        assignMemoryToPosNeighbours(node_t);
-        node_t->neighlen++;
-        node_t->pos_neighbours[node_t->neighlen] = node_t2;
+    if(findAlphIndex(node_t->letter) == (findAlphIndex(node_t2->letter)-1)){
+        node_t->neightailloc++;
+        node_t->pos_neighbours[node_t->neightailloc] = node_t2;
     }
-
-    else if(findAlphIndex(node_t->letter) == (findAlphIndex(node_t2->letter)+ 1)){
-        assignMemoryToPosNeighbours(node_t);
-        node_t->neighlen++;
-        node_t->pos_neighbours[node_t->neighlen] = node_t2;
+    if(findAlphIndex(node_t->letter) > (findAlphIndex(node_t2->letter))){
+        node_t->neightailloc++;
+        node_t->pos_neighbours[node_t->neightailloc] = node_t2;
     }
 }
 
@@ -92,59 +92,30 @@ void checkAndAppendNeighbour(Node* node_t,Node *node_t2){
 void createNeighbours(Node*** graph_t,int max_x,int max_y){
     for (int i = 0; i < max_y; ++i) {
         for (int j = 0; j < max_x; ++j) {
-            if(i==0 && j ==0){
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j+1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i+1][j]);
-            }
-            else if((i==0) && (j==max_x-1)){
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j-1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i+1][j]);
-            }
-            else if((i == max_y -1) && (j ==0)){
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j+1]);
+            if(IsInMap(i-1,j,max_y,max_x)){     //UP
                 checkAndAppendNeighbour(graph_t[i][j],graph_t[i-1][j]);
             }
-            else if((i == max_y -1) && (j == max_x -1)){
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j-1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i-1][j]);
-            }
-            else if(i == 0){
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j+1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j-1]);
+            if(IsInMap(i+1,j,max_y,max_x)){     //DOWN
                 checkAndAppendNeighbour(graph_t[i][j],graph_t[i+1][j]);
             }
-            else if(i == max_y-1){
+            if(IsInMap(i,j+1,max_y,max_x)){     //RIGHT
                 checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j+1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j-1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i-1][j]);
             }
-            else if(j == 0){
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j+1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i-1][j]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i+1][j]);
-            }
-            else if(j == max_x-1){
+            if(IsInMap(i,j-1,max_y,max_x)){     //LEFT
                 checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j-1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i-1][j]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i+1][j]);
             }
-            else{
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j+1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i][j-1]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i-1][j]);
-                checkAndAppendNeighbour(graph_t[i][j],graph_t[i+1][j]);
 
-            }
         }
     }
 
 }
+
 void freeGraph(Node*** graph_t,int max_x,int max_y){
-    for(int32_t i; i < max_x;++i){
-        for(int j = 0; j < max_y; ++j) {
-            free(graph_t[i][j]);
+    for(int32_t i; i < max_y;++i){
+        for(uint32_t j = 0; j < max_x; ++j) {
+            //free(graph_t[i][j]);
         }
-
+        //free(graph_t[i]);
     }
-
+    free(graph_t);
 }
