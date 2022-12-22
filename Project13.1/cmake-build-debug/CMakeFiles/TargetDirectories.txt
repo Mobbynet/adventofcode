@@ -1,0 +1,3 @@
+/home/michal/Studia/AdventOfCode/Project13.1/cmake-build-debug/CMakeFiles/Project13_1.dir
+/home/michal/Studia/AdventOfCode/Project13.1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/michal/Studia/AdventOfCode/Project13.1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
